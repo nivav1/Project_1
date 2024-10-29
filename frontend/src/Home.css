@@ -1,0 +1,16 @@
+body {
+    background-image: url('vecteezy_laser-background-futuristic-horizon-background-technology_6878140.jpg');
+    background-size: cover;        /* Scales the image to cover the entire viewport */
+    background-position: center;    /* Centers the background image */
+    background-repeat: no-repeat;   /* Prevents the image from repeating */
+    background-attachment: fixed;   /* Keeps the image fixed during scrolling */
+ }
+
+ #homemsg {
+    font-size: 7rem;
+    font-style: italic;
+    text-align: center;
+    margin-top: 33%;
+    text-shadow: 10cm;
+    color: cornsilk;
+ }
