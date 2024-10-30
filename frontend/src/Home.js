@@ -5,7 +5,7 @@ import './Home.css'
 export default function Home() {
     return (
     <div>
-    <h1 id='homemsg' >WELCOME! (user-pull from db)</h1>
+    <h1 id='homemsg' >WELCOME!</h1>
     </div>
     )
 }

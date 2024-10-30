@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Register.css'
 
 export default function Register() {
+  const navigate = useNavigate();
   const [showForm, setShowForm] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -23,11 +25,43 @@ export default function Register() {
 
     // Clear error message
     setError('');
-    
-    // Here, you would typically send a request to your API to register the user
-    console.log({ username, email, password });
-    alert('Registration successful');
+    registerUser();
+
   };
+
+  // Update your register function
+  const registerUser = async () => {
+    try {
+        const response = await fetch('http://localhost:5000/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: username,
+                email: email,
+                password: password,
+            }),
+        });
+        
+        if (!response.ok) {
+            throw new Error('Username or Email Already Exists!');
+        }
+
+        const data = await response.json();
+        console.log(data.message);
+        navigate('/Welcome');
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error: ' + error.message);
+    }
+};
+
+
+const handleSubmit = (event) => {
+  event.preventDefault(); // Prevent the default form submission
+  registerUser(); // Call the register function
+};
 
   return (
     <div className="register-container">
