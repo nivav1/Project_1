@@ -1,0 +1,19 @@
+FROM node:14
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+#builds the static files to run the application
+RUN npm run build
+
+#makes the static files accessable over http
+RUN npm install -g serve
+
+EXPOSE 3000
+
+CMD ["serve", "-s", "build"]
