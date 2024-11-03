@@ -1,7 +1,4 @@
 node {
-    stage ('checkout scm') {
-        git 'https://github.com/nivav1/project.git'
-    }
     stage ('Build infrastructure and configuration') {
         dir ('./Project_1')
         terraform init
