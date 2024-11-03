@@ -23,16 +23,6 @@ resource "aws_instance" "webapp" {
 }
 
 
-resource "aws_instance" "jenkins_master" {
-  ami = "ami-0399b1f276c3e2999"
-  instance_type = "t3.micro"
-  key_name = aws_key_pair.webapp_key.id
-  vpc_security_group_ids = [aws_security_group.jenkins_master.id]
-  tags = {
-    Name = "jenkins_master"
-  }
-}
-
 resource "aws_key_pair" "webapp_key" {
   key_name = "webapp"
   public_key = file("/home/niv/.ssh/id_ed25519.pub")
