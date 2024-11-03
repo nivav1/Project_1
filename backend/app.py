@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
+from sqlalchemy.exc import OperationalError
 
 app = Flask(__name__)
 CORS(app)
@@ -24,6 +25,21 @@ class User(db.Model):
         self.username = username
         self.email = email
         self.password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+def initialize_database():
+    with app.app_context():
+        try:
+            tables = db.engine.table_names()
+            if not tables:
+                print("No tables found. Creating tables...")
+                db.create_all()
+                print("Tables created.")
+            else:
+                print("Tables already exist. Skipping creation.")
+        except OperationalError:
+            print("Database connection failed. Ensure the database server is running.")
+
+initialize_database()
 
 # Registration endpoint
 @app.route('/register', methods=['POST'])

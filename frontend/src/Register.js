@@ -32,7 +32,7 @@ export default function Register() {
   // Update your register function
   const registerUser = async () => {
     try {
-        const response = await fetch('http://localhost:5000/register', {
+        const response = await fetch(`http://${process.env.Machine_ip}/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -43,7 +43,6 @@ export default function Register() {
                 password: password,
             }),
         });
-        
         if (!response.ok) {
             throw new Error('Username or Email Already Exists!');
         }

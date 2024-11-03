@@ -1,0 +1,33 @@
+---
+- name: Deploy application with Docker Compose
+  hosts: all
+  become: yes
+
+  vars:
+    app_directory_git: "/home/admin/Project_1"
+    app_directory: "/home/admin"
+    script_name: "machine_ip.sh"
+
+  tasks:
+    - name: Ensure the app directory exists
+      file:
+        path: "{{ app_directory }}"
+        state: directory
+
+    - name: Clone the GitHub repository
+      git:
+        repo: "https://github.com/nivav1/project.git"
+        dest: "{{ app_directory }}"
+        update: yes
+
+    - name: Run the application script
+      command: >
+        bash {{ app_directory_git }}/{{ script_name }}
+      args:
+        chdir: "{{ app_directory_git }}"  # Change to the app directory before running the script
+
+    - name: Run Docker Compose to start the application
+      command: >
+        docker-compose up -d
+      args:
+        chdir: "{{ app_directory_git }}"
