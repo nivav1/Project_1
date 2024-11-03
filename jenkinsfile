@@ -3,7 +3,6 @@ node {
 	git branch: 'main', url: 'https://github.com/nivav1/Project_1.git'
     }
     stage ('Build infrastructure and configuration') {
-        dir ('./Project_1')
         terraform init
         terraform apply --auto-approve
         sh 'bash machine_ip'
