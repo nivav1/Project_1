@@ -2,12 +2,10 @@ services:
   frontend:
     build:
       context: ./frontend
+      args:
+        Machine_ip=${machine_ip}
     ports:
       - "3000:3000"
-    environment:
-      - Machine_ip=${machine_ip}
-    depends_on:
-      - backend
 
   backend:
     build:

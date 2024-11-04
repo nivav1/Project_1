@@ -44,8 +44,8 @@
           - containerd.io
           - docker-buildx-plugin
           - docker-compose-plugin
-      state: latest
-      update_cache: yes
+        state: latest
+        update_cache: yes
 
     - name: Ensure Docker is started and enabled
       systemd:

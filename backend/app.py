@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 from sqlalchemy.exc import OperationalError
+from sqlalchemy import inspect
 
 app = Flask(__name__)
 CORS(app)
@@ -29,7 +30,7 @@ class User(db.Model):
 def initialize_database():
     with app.app_context():
         try:
-            tables = db.engine.table_names()
+            tables = inspect(db.engine).get_table_names()
             if not tables:
                 print("No tables found. Creating tables...")
                 db.create_all()

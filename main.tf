@@ -18,14 +18,14 @@ resource "aws_instance" "webapp" {
   key_name = aws_key_pair.webapp_key.id
   vpc_security_group_ids = [aws_security_group.webapp.id]
   tags = {
-    Name = "webapp"
+    Name = "webapp_jenkins"
   }
 }
 
 
 resource "aws_key_pair" "webapp_key" {
-  key_name = "webapp"
-  public_key = file("/home/niv/.ssh/id_ed25519.pub")
+  key_name = "webapp_jenkins"
+  public_key = file("/home/admin/.ssh/id_ed25519.pub")
 }
 
 output "web_public_ip" {
@@ -35,7 +35,7 @@ output "web_public_ip" {
 
 
 resource "aws_security_group" "webapp" {
-description = "webapp security_group"
+description = "webapp_jenkins security_group"
     egress   {
             cidr_blocks      = [
                 "0.0.0.0/0",
@@ -72,40 +72,7 @@ description = "webapp security_group"
       protocol = "tcp"
       to_port = 22
     }
-    name        = "webapp_sc"
+    name        = "webapp_jenkins_sc"
     vpc_id      = "vpc-0daa5961ce2929e7a"
 }
-
-resource "aws_security_group" "jenkins_master" {
-description = "jenkins_master security_group"
-    egress   {
-            cidr_blocks      = [
-                "0.0.0.0/0",
-            ]
-            description      = null
-            from_port        = 0
-            protocol         = "-1"
-            to_port          = 0
-        }
-    ingress  {
-            cidr_blocks      = [
-                "0.0.0.0/0",
-            ]
-            description      = null
-            from_port        = 8080
-            protocol         = "tcp"
-            to_port          = 8080
-        }
-    ingress {
-      cidr_blocks            = [
-               "77.126.1.229/32",
-      ]
-      description            = null
-      from_port = 22
-      protocol = "tcp"
-      to_port = 22
-    }
-    name        = "jenkins_master_sc"
-    vpc_id      = "vpc-0daa5961ce2929e7a"
-} 
 

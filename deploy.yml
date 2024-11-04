@@ -4,30 +4,25 @@
   become: yes
 
   vars:
-    app_directory_git: "/home/admin/Project_1"
-    app_directory: "/home/admin"
+    app_directory_git: "/home/admin/webapp"
     script_name: "machine_ip.sh"
-
+    machine_ip: "{{ machine_ip }}"
   tasks:
-    - name: Ensure the app directory exists
-      file:
-        path: "{{ app_directory }}"
+    - name: Create a directory for cloning
+      ansible.builtin.file:
+        path: '/home/admin/webapp'
         state: directory
 
     - name: Clone the GitHub repository
       git:
-        repo: "https://github.com/nivav1/project.git"
-        dest: "{{ app_directory }}"
+        repo: "https://github.com/nivav1/Project_1.git"
+        dest: "/home/admin/webapp"
         update: yes
 
-    - name: Run the application script
-      command: >
-        bash {{ app_directory_git }}/{{ script_name }}
+    - name: Export environment variables and run Docker Compose to start the application
+      shell: |
+        export machine_ip="{{ machine_ip }}"
+        docker compose up -d
       args:
-        chdir: "{{ app_directory_git }}"  # Change to the app directory before running the script
-
-    - name: Run Docker Compose to start the application
-      command: >
-        docker-compose up -d
-      args:
+        executable: /bin/bash
         chdir: "{{ app_directory_git }}"
