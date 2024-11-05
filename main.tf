@@ -25,7 +25,7 @@ resource "aws_instance" "webapp" {
 
 resource "aws_key_pair" "webapp_key" {
   key_name = "webapp_jenkins"
-  public_key = file("/home/admin/.ssh/id_ed25519.pub")
+  public_key = file("/var/lib/jenkins/.ssh/id_ed25519.pub")
 }
 
 output "web_public_ip" {
