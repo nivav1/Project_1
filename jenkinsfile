@@ -5,8 +5,7 @@ node {
     stage ('Build infrastructure and configuration') {
         sh 'terraform init'
         sh 'terraform apply --auto-approve'
-	sh 'echo $PWD'
-        sh 'source machine_ip.sh'
+        sh '. ./machine_ip.sh'
         sh 'ansible-playbook -i host.ini installdocker.yml'
     }
     stage ('Deploy application') {
