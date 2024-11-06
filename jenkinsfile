@@ -4,6 +4,7 @@ node {
     }
     stage ('Build infrastructure and configuration') {
         sh 'terraform init'
+	sh 'terraform destroy --auto-approve'
         sh 'terraform apply --auto-approve'
         env.machine_ip = sh(script: ". ./machine_ip.sh", returnStdout: true).trim()
         sh 'ansible-playbook -i host.ini installdocker.yml'
