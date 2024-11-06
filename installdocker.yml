@@ -1,6 +1,7 @@
 ---
 - name: Install Docker on Debian
   hosts: all
+  become_user: admin
   become: yes
 
   tasks:
