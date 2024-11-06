@@ -1,7 +1,6 @@
 ---
 - name: Install Docker on Debian
   hosts: all
-  ansible_user: admin
   become: yes
 
   tasks:
