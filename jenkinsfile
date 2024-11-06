@@ -10,6 +10,6 @@ node {
     }
     stage ('Deploy application') {
 	sh '. ./machine_ip.sh'
-        sh 'ansible-playbook -i host.ini deploy.yml -e "machine_ip=${machine_ip}"'
+        sh 'ansible-playbook -i host.ini deploy.yml -e "machine_ip=${machine_ip}" ansible_user=admin'
     }
 }
