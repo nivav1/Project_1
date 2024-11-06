@@ -32,7 +32,7 @@ export default function Register() {
   // Update your register function
   const registerUser = async () => {
     try {
-        const response = await fetch(`http://${process.env.Machine_ip}:5000/register`, {
+        const response = await fetch(`http://${process.env.MACHINE_IP}:5000/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

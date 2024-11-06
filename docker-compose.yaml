@@ -3,7 +3,7 @@ services:
     build:
       context: ./frontend
       args:
-        - Machine_ip=${machine_ip}
+        - MACHINE_IP=${machine_ip}
     ports:
       - "3000:3000"
 
