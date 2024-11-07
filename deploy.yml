@@ -6,7 +6,7 @@
   vars:
     app_directory_git: "/home/admin/webapp"
     script_name: "machine_ip.sh"
-    machine_ip: "{{ machine_ip }}"
+    machine_ip: "{{ lookup('env', 'machine_ip') }}"
   tasks:
     - name: Create a directory for cloning
       ansible.builtin.file:
@@ -22,7 +22,7 @@
     - name: Export environment variables and run Docker Compose to start the application
       shell: |
         export machine_ip="{{ machine_ip }}"
-        echo "$machine_ip"
+        echo "$machine_ip" > variable.txt
         docker compose up -d
       args:
         executable: /bin/bash
