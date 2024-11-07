@@ -1,5 +1,9 @@
 FROM node:14
 
+ARG MACHINE_IP
+
+ENV MACHINE_IP=${machine_ip}
+
 WORKDIR /app
 
 COPY package*.json ./

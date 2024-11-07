@@ -3,12 +3,10 @@ node {
 	git branch: 'main', url: 'https://github.com/nivav1/Project_1.git'
     }
     stage ('Build infrastructure and configuration') {
-	sh 'terraform destroy --auto-approve'
-	sh 'terraform apply --auto-approve'
         env.machine_ip = sh(script: ". ./machine_ip.sh", returnStdout: true).trim()
         sh 'ansible-playbook -i host.ini installdocker.yml'
     }
     stage ('Deploy application') {
-        sh "ansible-playbook -i host.ini deploy.yml -e machine_ip=${env.machine_ip} -vvv"
+        sh "ansible-playbook -i host.ini deploy.yml -e machine_ip=${env.machine_ip} -v"
     }
 }
