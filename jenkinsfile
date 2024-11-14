@@ -7,6 +7,6 @@ node {
         sh 'ansible-playbook -i host.ini installdocker.yml'
     }
     stage ('Deploy application') {
-        sh "ansible-playbook -i host.ini deploy.yml -e machine_ip=${env.machine_ip} -v"
+        sh "ansible-playbook -i host.ini deploy.yml -e machine_ip=${env.machine_ip}"
     }
 }

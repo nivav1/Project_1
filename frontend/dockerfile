@@ -1,8 +1,8 @@
-FROM node:14
+FROM node:23.1.0-bookworm-slim AS build
 
-ARG MACHINE_IP
+ARG REACT_APP_MACHINE_IP
 
-ENV MACHINE_IP=${machine_ip}
+ENV REACT_APP_MACHINE_IP=${REACT_APP_MACHINE_IP}
 
 WORKDIR /app
 
@@ -16,8 +16,15 @@ COPY . .
 RUN npm run build
 
 #makes the static files accessable over http
-RUN npm install -g serve
+#RUN npm install -g serve
+
+##########################################################
+FROM node:23.1.0-alpine
+
+WORKDIR /app
+
+COPY --from=build /app/build /app/build
 
 EXPOSE 3000
 
-CMD ["serve", "-s", "build"]
+CMD ["npx", "serve", "-s", "build"]
