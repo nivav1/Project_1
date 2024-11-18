@@ -1,10 +1,10 @@
 # In this project I am running a Jenkins pipeline to first configure a cloud VM using terraform
 
-# Generate the IP of the machine using terraform output in a bash script and store it in jenkins env. variable and in my ansible host.ini file
+# Generate the IP of the machine using terraform output in a bash script and store it in jenkins env variable and in my ansible host.ini file
 
 # Install any dependencies for the app, In that case docker, using ansible
 
-# Then deploy the app and run it inside the environment using ansible.
+# Then deploy the app and run it inside the environment using ansible and docker compose.
 
 # I used multi stage docker images to massively decrease my frontend image's size
 
