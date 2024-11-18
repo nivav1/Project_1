@@ -12,13 +12,8 @@ RUN npm install
 
 COPY . .
 
-#builds the static files to run the application
 RUN npm run build
 
-#makes the static files accessable over http
-#RUN npm install -g serve
-
-##########################################################
 FROM node:23.1.0-alpine
 
 WORKDIR /app

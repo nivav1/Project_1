@@ -22,7 +22,6 @@
     - name: Export environment variables and run Docker Compose to start the application
       shell: |
         export machine_ip="{{ machine_ip }}"
-        echo "$machine_ip" > variable.txt
         docker compose up -d
       args:
         executable: /bin/bash
