@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_HUB_REPO = 'nivav123/webapp-jenkins'
-        DOCKER_HUB_CREDENTIALS = 'de470fa4-f3b8-4ae5-a219-3e056f4dccb3'
+        DOCKER_HUB_CREDENTIALS = '12793b30-99eb-445a-ab16-dd729c2276cc'
     }
 
     stages {
