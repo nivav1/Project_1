@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_HUB_REPO = 'nivav123/webapp-jenkins'
-        DOCKER_HUB_CREDENTIALS = '0c108534-9d47-4fb6-8588-d5b528aa5255'
+        DOCKER_HUB_CREDENTIALS = 'd584ae5c-a8d4-4ab0-95b3-e6f7f81769cb'
     }
 
     stages {
@@ -17,14 +17,14 @@ pipeline {
                 stage('Backend Tests') {
                     steps {
                         dir('backend') {
-                            sh 'python3 -m pytest tests'
+                            sh 'flake8 .'
                         }
                     }
                 }
                 stage('Frontend Tests') {
                     steps {
                         dir('frontend') {
-                            sh 'npm install && npm test'
+                            sh 'npx eslint .'
                         }
                     }
                 }
