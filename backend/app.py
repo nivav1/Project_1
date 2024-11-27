@@ -13,6 +13,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+
+
 class User(db.Model):
     __tablename__ = 'users'
 
@@ -26,6 +28,7 @@ class User(db.Model):
         self.email = email
         self.password = bcrypt.generate_password_hash(password).decode('utf-8')
 
+
 def initialize_database():
     with app.app_context():
         try:
@@ -37,9 +40,12 @@ def initialize_database():
             else:
                 print("Tables already exist. Skipping creation.")
         except OperationalError:
-            print("Database connection failed. Ensure the database server is running.")
+            print("Database connection failed."
+                  " Ensure the database server is running.")
+
 
 initialize_database()
+
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -48,8 +54,8 @@ def register():
     email = data.get('email')
     password = data.get('password')
 
-
-    if User.query.filter_by(username=username).first() or User.query.filter_by(email=email).first():
+    if (User.query.filter_by(username=username).first()
+            or User.query.filter_by(email=email).first()):
         return jsonify({'message': 'User already exists'}), 400
 
     try:
@@ -58,9 +64,10 @@ def register():
         db.session.commit()
         return jsonify({"message": "User registered successfully!"}), 201
     except Exception as e:
-        db.session.rollback() # Rolls back the transaction on error
+        db.session.rollback()
         app.logger.error("Error during registration: %s", e)
         return jsonify({"error": str(e)}), 500
+
 
 if __name__ == '__main__':
     pass
