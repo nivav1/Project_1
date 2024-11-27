@@ -46,8 +46,9 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry([credentialsId: DOCKER_HUB_CREDENTIALS]) {
-                        sh "docker push ${DOCKER_HUB_REPO}:frontend-${env.BUILD_NUMBER}"
-                        sh "docker push ${DOCKER_HUB_REPO}:backend-${env.BUILD_NUMBER}"
+			sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+                        sh "docker push -v ${DOCKER_HUB_REPO}:frontend-${env.BUILD_NUMBER}"
+                        sh "docker push -v ${DOCKER_HUB_REPO}:backend-${env.BUILD_NUMBER}"
                     }
                 }
             }
