@@ -45,11 +45,9 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    withDockerRegistry([credentialsId: DOCKER_HUB_CREDENTIALS]) {
-			sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
-                        sh 'echo testing'
-		        sh "docker push -v ${DOCKER_HUB_REPO}:frontend-${env.BUILD_NUMBER} || exit 1"
-                        sh "docker push -v ${DOCKER_HUB_REPO}:backend-${env.BUILD_NUMBER} || exit 1"
+                    withCredentials([usernameColonPassword(credentialsId: DOCKER_HUB_CREDENTIALS, variable: '')]) {
+		        sh "docker push -v ${DOCKER_HUB_REPO}:frontend-${env.BUILD_NUMBER}"
+                        sh "docker push -v ${DOCKER_HUB_REPO}:backend-${env.BUILD_NUMBER}"
                     }
                 }
             }
