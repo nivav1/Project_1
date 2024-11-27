@@ -13,7 +13,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
-# User model
 class User(db.Model):
     __tablename__ = 'users'
 
@@ -42,7 +41,6 @@ def initialize_database():
 
 initialize_database()
 
-# Registration endpoint
 @app.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
@@ -50,7 +48,6 @@ def register():
     email = data.get('email')
     password = data.get('password')
 
-    # Add validation here
 
     if User.query.filter_by(username=username).first() or User.query.filter_by(email=email).first():
         return jsonify({'message': 'User already exists'}), 400

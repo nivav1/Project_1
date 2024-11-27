@@ -13,7 +13,7 @@ export default function Register() {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    // Basic form validation
+
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
@@ -23,13 +23,11 @@ export default function Register() {
         return;
       }
 
-    // Clear error message
     setError('');
     registerUser();
 
   };
 
-  // Update your register function
   const registerUser = async () => {
     try {
         const response = await fetch(`http://${process.env.REACT_APP_MACHINE_IP}:5000/register`, {
@@ -59,7 +57,7 @@ export default function Register() {
 
 const handleSubmit = (event) => {
   event.preventDefault(); // Prevent the default form submission
-  registerUser(); // Call the register function
+  registerUser();
 };
 
   return (
