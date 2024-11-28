@@ -5,7 +5,9 @@ pipeline {
         DOCKER_HUB_REPO = 'nivav123/webapp-jenkins'
         DOCKER_HUB_CREDENTIALS = credentials('12793b30-99eb-445a-ab16-dd729c2276cc')
     }
-
+    parameters {
+        string(name: 'machine_ip', defaultValue: '', description: 'Variable passed from terraform state in environment configuration')
+    }
     stages {
         stage('Checkout Code') {
             steps {
@@ -33,7 +35,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-		    env.machine_ip = sh(script: ". ./machine_ip.sh", returnStdout: true).trim()		    
+		    env.machine_ip =  params.machine_ip
                     dir('frontend') {
                         sh "docker build -t ${DOCKER_HUB_REPO}:frontend-${env.BUILD_NUMBER} --build-arg REACT_APP_MACHINE_IP=${env.machine_ip} ."
                     }

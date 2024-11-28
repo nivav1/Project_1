@@ -11,11 +11,21 @@ pipeline {
         stage('Build Infrastructure') {
             steps {
                 script {
-                    sh 'terraform init'
-		    sh 'terraform validate'
-                    sh 'terraform apply --auto-approve'
+		    sh '''
+                        terraform init
+                        terraform apply --auto-approve -state=terraform.tfstate
+		        mv terraform.tfstate ${WORKSPACE}/terraform.tfstate
+		    '''
                 }
             }
         }
+	stage('Source New Machine IP') {
+	    steps {
+		script {
+		    env.machine_ip = sh(script: ". ./machine_ip.sh", returnStdout: true).trim()
+		    build job: 'pipeline-CI', parameters: [string(name: 'machine_ip', value: env.machine_ip)]		    
+		}
+	    }
+	}
     }
 }
