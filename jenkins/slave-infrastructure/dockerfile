@@ -10,7 +10,7 @@ RUN mkdir -p /.aws \
 COPY ./scripts/ ./
 COPY ./.aws/* /root/.aws/ 
 COPY ./ansible.cfg /etc/ansible/
-COPY ./.ssh/id_ed25519* /root/.ssh/
+COPY ./.ssh/id_rsa* /root/.ssh/
 
 RUN chmod 600 -R /root/.ssh
 RUN chmod 600 -R /root/.aws
