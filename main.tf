@@ -64,14 +64,14 @@ description = "webapp_jenkins security_group"
         to_port              = 5000
        }
     ingress  {
-	    cidr_blocks      = [
-		"0.0.0.0/0",
-	]
-	description 	     = null
-	from_port   	     = 5432
-	protocol 	     = "tcp
-	to_port 	     = 5432
-	}
+            cidr_blocks      = [
+                "0.0.0.0/0",
+        ]
+        description          = null
+        from_port            = 5432
+        protocol             = "tcp"
+        to_port              = 5432
+       }
         ingress {
       cidr_blocks            = [
                "0.0.0.0/0",
