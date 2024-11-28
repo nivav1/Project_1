@@ -14,11 +14,11 @@ pipeline {
 		    sh 'whoami'
 		    sh 'echo $PWD'
 		    sh 'echo ~'
-#                    sh 'terraform init'
-#		    sh 'terraform validate'
- #                   sh 'terraform apply --auto-approve'
-  #                  sh '. ./machine_ip.sh'
-   #                 sh 'ansible-playbook -i ./ansible/host.ini ./ansible/installdocker.yml'
+                    sh 'terraform init'
+		    sh 'terraform validate'
+                    sh 'terraform apply --auto-approve'
+                    sh '. ./machine_ip.sh'
+                    sh 'ansible-playbook -i ./ansible/host.ini ./ansible/installdocker.yml'
                 }
             }
         }
