@@ -5,7 +5,7 @@ pipeline {
 	stages {
 	    stage ('test terraform state') {
 		steps {
-		  sh 'terraform destory'
+		  sh 'terraform destroy'
 		}
 	    }
 		
