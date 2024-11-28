@@ -1,0 +1,14 @@
+pipeline {
+     agent {
+	docker { image 'jenkins-infrastructure-agent' }
+     }
+	stages {
+	    stage ('test terraform state') {
+		steps {
+		  sh 'terraform destory'
+		}
+	    }
+		
+	}
+
+}
