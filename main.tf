@@ -25,7 +25,7 @@ resource "aws_instance" "webapp" {
 
 resource "aws_key_pair" "webapp_key" {
   key_name = "webapp_jenkins"
-  public_key = file("/var/lib/jenkins/.ssh/id_ed25519.pub")
+  public_key = file("/.ssh/id_ed25519.pub")
 }
 
 output "web_public_ip" {
@@ -63,6 +63,15 @@ description = "webapp_jenkins security_group"
         protocol             = "tcp"
         to_port              = 5000
        }
+    ingress  {
+	    cidr_blocks      = [
+		"0.0.0.0/0",
+	]
+	description 	     = null
+	from_port   	     = 5432
+	protocol 	     = "tcp
+	to_port 	     = 5432
+	}
         ingress {
       cidr_blocks            = [
                "0.0.0.0/0",

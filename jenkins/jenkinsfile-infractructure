@@ -8,14 +8,16 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/nivav1/Project_1.git'
             }
         }
-        stage('Deploy Application') {
+        stage('Build Infrastructure and Configuration') {
             steps {
                 script {
+                    sh 'terraform init'
+		    sh 'terraform validate'
+                    sh 'terraform apply --auto-approve'
                     sh '. ./machine_ip.sh'
-                    sh "ansible-playbook -i ./ansible/host.ini ./ansible/deploy.yml"
+                    sh 'ansible-playbook -i ./ansible/host.ini ./ansible/installdocker.yml'
                 }
             }
         }
     }
-}
 }

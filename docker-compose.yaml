@@ -1,15 +1,11 @@
 services:
   frontend:
-    build:
-      context: ./frontend
-      args:
-       REACT_APP_MACHINE_IP: "${machine_ip}"
+    image: nivav123/webapp-jenkins:frontend-1
     ports:
       - "3000:3000"
 
   backend:
-    build:
-      context: ./backend
+    image: nivav123/webapp-jenkins:backend-1
     ports:
       - "5000:5000"
     depends_on:

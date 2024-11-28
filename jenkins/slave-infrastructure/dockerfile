@@ -1,0 +1,23 @@
+FROM debian:bookworm-slim
+
+WORKDIR /dependencies
+
+RUN mkdir -p /.aws \
+	     /etc/ansible \
+	     /.ssh
+
+# /.aws and /.ssh folders removed for security
+COPY ./scripts/ ./
+COPY ./.aws/* /.aws/ 
+COPY ./ansible.cfg /etc/ansible/
+COPY ./.ssh/id_ed25519* /.ssh/
+
+RUN chmod 600 -R /.ssh
+
+RUN apt update -y && apt install -y git
+RUN bash ./terraforminstall.sh
+RUN bash ./ansibleinstall.sh
+
+ENV PATH="${PATH}:/root/.local/bin"
+
+CMD ['']

@@ -1,0 +1,10 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      args:
+       REACT_APP_MACHINE_IP: "${machine_ip}"
+    ports:
+      - "3000:3000"
+
+
