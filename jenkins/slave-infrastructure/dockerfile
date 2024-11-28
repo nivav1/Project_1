@@ -8,11 +8,12 @@ RUN mkdir -p /.aws \
 
 # /.aws and /.ssh folders removed for security
 COPY ./scripts/ ./
-COPY ./.aws/* /.aws/ 
+COPY ./.aws/* /root/.aws/ 
 COPY ./ansible.cfg /etc/ansible/
-COPY ./.ssh/id_ed25519* /.ssh/
+COPY ./.ssh/id_ed25519* /root/.ssh/
 
-RUN chmod 600 -R /.ssh
+RUN chmod 600 -R /root/.ssh
+RUN chmod 600 -R /root/.aws
 
 RUN apt update -y && apt install -y git
 RUN bash ./terraforminstall.sh
