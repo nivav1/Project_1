@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_HUB_REPO = 'nivav123/webapp-jenkins'
-        DOCKER_HUB_CREDENTIALS = '12793b30-99eb-445a-ab16-dd729c2276cc'
+        DOCKER_HUB_CREDENTIALS = credentials('12793b30-99eb-445a-ab16-dd729c2276cc')
     }
 
     stages {
@@ -45,16 +45,17 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    withCredentials([usernameColonPassword(credentialsId: DOCKER_HUB_CREDENTIALS, variable: '')]) {
-			sh "docker login -u $DOCKER_USERNAME -p '$DOCKER_PASSWORD'"
+			sh "echo $DOCKER_HUB_CREDENTIALS_PSW | docker login -u $DOCKER_HUB_CREDENTIALS_USR --password-stdin"
 		        sh "docker push ${DOCKER_HUB_REPO}:frontend-${env.BUILD_NUMBER}"
                         sh "docker push ${DOCKER_HUB_REPO}:backend-${env.BUILD_NUMBER}"
-                    }
                 }
             }
         }
     }
     post {
+	always {
+	    sh 'docker logout'
+	}
         success {
             echo 'Pipeline executed successfully!'
         }
