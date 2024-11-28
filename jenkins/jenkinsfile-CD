@@ -8,6 +8,13 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/nivav1/Project_1.git'
             }
         }
+	stage('Install Dependencies') {
+	    steps {
+		script {
+		    sh 'ansible-playbook -i ./ansible/host.ini ./ansible/installdocker.yml'
+		}
+	    }
+	}
         stage('Deploy Application') {
             steps {
                 script {
