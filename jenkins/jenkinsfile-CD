@@ -13,7 +13,7 @@ pipeline {
 	stage('Install Dependencies') {
 	    steps {
 		script {
-		    sh '. ./machine_ip'
+		    sh '. ./machine_ip.sh'
 		    sh 'ansible-playbook -i ./ansible/host.ini ./ansible/installdocker.yml'
 		}
 	    }
