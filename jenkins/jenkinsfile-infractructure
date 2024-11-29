@@ -16,7 +16,7 @@ pipeline {
 		    sh '''
                         terraform init
                         terraform apply --auto-approve
-			mv terraform.tfstate /state
+			cp terraform.tfstate /state
 		    '''
                 }
             }
