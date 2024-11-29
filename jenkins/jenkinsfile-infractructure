@@ -1,6 +1,8 @@
 pipeline {
     agent {
-	docker { image 'jenkins-infrastructure-agent:latest' }
+	docker { image 'jenkins-infrastructure-agent:latest'
+		 args '-v /home/niv/work/website/state:/var/jenkins_home/workspace/pipeline-infrastructure/terraform.tfstate'
+	}
 	}
     stages {
         stage('Checkout SCM') {
@@ -13,8 +15,7 @@ pipeline {
                 script {
 		    sh '''
                         terraform init
-                        terraform apply --auto-approve -state=terraform.tfstate
-		        mv terraform.tfstate ${WORKSPACE}/terraform.tfstate
+                        terraform apply --auto-approve
 		    '''
                 }
             }
