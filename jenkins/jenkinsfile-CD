@@ -1,6 +1,8 @@
 pipeline {
     agent {
-	docker { image 'jenkins-infrastructure-agent:latest' }
+	docker { image 'jenkins-infrastructure-agent:latest'
+		 args '-v /home/niv/work/website/state/terraform.tfstate:/var/jenkins_home/workspace/pipeline-CD/terraform.tfstate
+	 }
 	}
     stages {
         stage('Checkout SCM') {
@@ -11,6 +13,7 @@ pipeline {
 	stage('Install Dependencies') {
 	    steps {
 		script {
+		    sh '. ./machine_ip'
 		    sh 'ansible-playbook -i ./ansible/host.ini ./ansible/installdocker.yml'
 		}
 	    }
@@ -18,11 +21,9 @@ pipeline {
         stage('Deploy Application') {
             steps {
                 script {
-                    sh '. ./machine_ip.sh'
                     sh "ansible-playbook -i ./ansible/host.ini ./ansible/deploy.yml"
                 }
             }
         }
     }
-}
 }
