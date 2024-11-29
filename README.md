@@ -54,4 +54,4 @@
 
 # jenkinsfile-CD installs dependencies on the new machine(in that case docker), deploys the app and runs the docker-compose inside the new machine, which pulls the images from dockerhub and runs the app.
 
-######## END
+############ END
