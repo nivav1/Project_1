@@ -1,7 +1,7 @@
 pipeline {
     agent {
 	docker { image 'jenkins-infrastructure-agent:latest'
-		 args '-v /home/niv/work/website/state/terraform.tfstate:/var/jenkins_home/workspace/pipeline-CD/terraform.tfstate
+		 args '-v /home/niv/work/website/state/terraform.tfstate:/var/jenkins_home/workspace/pipeline-CD/terraform.tfstate'
 	 }
 	}
     stages {
